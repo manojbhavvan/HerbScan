@@ -1,0 +1,22 @@
+body {
+    background-image: url('../assets/jaimie-phillips-KamSS2euCzA-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+  }
+  .super{
+    padding: 150px;
+    margin: 50px;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  .container{
+    padding: 50px;
+  }
+  .f_btn {
+    background-color: #555555;
+}
+.s_btn {
+    background-color: #555555;
+    color: white;
+}
