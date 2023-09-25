@@ -61,6 +61,16 @@ def process_predictions(predictions):
     
     return f'Predicted Label: {predicted_label}, Confidence: {confidence:.2f}'
 
+def predict_plant(image):
+    # Preprocess the image
+    preprocessed_image = preprocess_image(image)
+
+    # Make predictions using your model
+    predictions = model.predict(preprocessed_image)
+
+    # Process the predictions and return the result
+    return process_predictions(predictions)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -73,14 +83,22 @@ def classify():
     if uploaded_image.filename != '':
         # Open and preprocess the image
         image = Image.open(uploaded_image)
-        preprocessed_image = preprocess_image(image)
 
         # Make predictions using your model
-        predictions = model.predict(preprocessed_image)
+        result = predict_plant(image)
 
-        # Process the predictions and return the result
-        result = process_predictions(predictions)
-        return render_template('result.html', result=result)
+        # Check if it's not a plant based on a confidence threshold (e.g., 0.5)
+        confidence_threshold = 0.5
+        if isinstance(result, tuple):  # Check if it's a plant prediction
+            predicted_label, confidence = result
+            if confidence >= confidence_threshold:
+                result_str = f"Predicted Label: {predicted_label}, Confidence: {confidence:.2f}"
+            else:
+                result_str = "Not a plant"
+        else:
+            result_str = "Not a plant"
+
+        return render_template('result.html', result=result_str)
     else:
         return redirect(url_for('index'))
 
